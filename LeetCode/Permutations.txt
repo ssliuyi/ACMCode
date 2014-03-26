@@ -1,25 +1,31 @@
 class Solution {
 public:
-    void swap(vector<int> &num,int a,int b)
+    void swap(int & a, int & b)
     {
-        int temp=num.at(a);
-        num.at(a)=num.at(b);
-        num.at(b)=temp;
+        int tmp = a;
+        a = b;
+        b = tmp;
     }
-     void permute(vector<vector<int> >&result,vector<int> &num,int b,int e) {
-         if(b==e)  result.push_back(num);
-         for(int i=b;i<=e;i++)
-         {
-             swap(num,b,i);
-             permute(result,num,b+1,e);
-             swap(num,b,i);
-         }
-     }
+    void p(vector<int> &num , vector<vector<int> > &res ,int k)
+    {
+        if (k == num.size()-1)
+        {
+            res.push_back(num);
+            return;
+        }
+        else
+        {
+            for (int i = k; i<num.size(); i++)
+            {
+                swap(num[k],num[i]);
+                p(num,res,k+1);
+                swap(num[k],num[i]);
+            }
+        }
+    }
     vector<vector<int> > permute(vector<int> &num) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
-        vector<vector<int> > result;
-        permute(result,num,0,num.size()-1);
-        return result;
+        vector<vector<int> > res;
+        p(num,res,0);
+        return res;
     }
 };
