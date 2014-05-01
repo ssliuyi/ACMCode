@@ -31,5 +31,9 @@ class Solution {
                 depth = ld > rd ? ld + 1 : rd + 1;  
                 return true;  
             }  
+            else
+            {
+                return false;
+            }
         }  
 };
