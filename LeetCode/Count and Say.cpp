@@ -3,10 +3,10 @@
  *
  *       Filename:  Count and Say.cpp
  *
- *    Description:  LeetCode
+ *    Description:  
  *
  *        Version:  1.0
- *        Created:  03/31/2014 07:15:28 PM
+ *        Created:  05/14/2014 10:50:03 AM
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,62 +15,51 @@
  *
  * =====================================================================================
  */
-
-#include <iostream>
+#include <stdlib.h>
 #include <string>
-#include <sstream>
-
+#include <iostream>
 using namespace std;
-
-
 class Solution {
     public:
         string countAndSay(int n) {
-
-            string res;
             string pre = "1";
-
-            for( int i = 1 ; i < n ; i++ )
+            if( n == 1 )
             {
-                int cur = 0;
-                int dup = 0;
-                string ch = pre.substr(0, 1); 
-                while( cur < pre.size())
-                {
-                    string ch = pre.substr(cur, 1); 
-                    if( pre.substr(cur, 1) == ch )
-                    {
-                        dup++;
-                    }
-                    else
-                    {
-                        string sdup;
-                        stringstream ss;
-                        ss<<dup;
-                        ss>>sdup;
-                        res.append(sdup);
-                        res.append(ch);
-                        dup = 0;
-                    }
-                }
-                if( dup != 0 )
-                {  
-                    string sdup;
-                    stringstream ss;
-                    ss<<dup;
-                    ss>>sdup;
-                    res.append(sdup);
-                    res.append(ch);
-                }
-                pre = res;
-                cur++;
+                return pre;
             }
-            return res;
+            else
+            {
+                for( int i = n ; i > 1 ; i-- )
+                {
+                    int x = 0;
+                    int y = 0;
+                    int num = 0;
+                    string cur;
+                    while( y < pre.size())
+                    {
+                        if( pre[x] == pre[y] )
+                        {
+                            num++;
+                            y++;
+                        }
+                        else
+                        {
+                            cur = cur + char(num + '0');
+                            cur = cur + pre[x];
+                            num = 0;
+                            x = y;
+                        }
+                    }
+                    if( x != y )
+                    {
+                        cur = cur + char(num + '0');
+                        cur = cur + pre[x];
+                        num = 0;
+                        x = y;
+                    }
+                    pre = cur;
+                }
+            }
+            return pre;
         }
 };
-
-int main()
-{
-    Solution s;
-    cout<<s.countAndSay(2);
-}
